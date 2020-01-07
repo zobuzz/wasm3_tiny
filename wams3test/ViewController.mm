@@ -36,13 +36,33 @@ extern "C"
         }
         return m3Err_none;
     }
+
+    M3Result repl_call  (IM3Runtime runtime, const char* name)
+    {
+        M3Result result = m3Err_none;
+
+        IM3Function func;
+        result = m3_FindFunction (&func, runtime, name);
+        if (result) return result;
+
+        result = m3_CallWithArgs (func, 0, nil);
+        if (result) return result;
+
+        return result;
+}
     
     M3Result repl_load  (IM3Runtime runtime, const char* fn)
     {
         M3Result result = m3Err_none;
         
-        u8* wasm = (u8*)fib32_wasm;
-        u32 fsize = fib32_wasm_len;
+        NSString* path = [[NSBundle mainBundle] pathForResource:@"wasm3_tiny_data/helloworld"
+        ofType:@""];
+        
+        NSURL *fileUrl = [NSURL fileURLWithPath:path];
+        NSData *fileData = [NSData dataWithContentsOfURL:fileUrl];
+        
+        u8* wasm = (u8*)fileData.bytes;
+        u32 fsize = fileData.length;
 
         IM3Module module;
         result = m3_ParseModule (runtime->environment, &module, wasm, fsize);
@@ -52,6 +72,8 @@ extern "C"
         if (result) return result;
         
         result = m3_LinkSpecTest (runtime->modules);
+        
+        result = repl_call(runtime, "_start");
         
         return result;
     }
