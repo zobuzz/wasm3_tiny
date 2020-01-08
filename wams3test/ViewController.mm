@@ -71,13 +71,7 @@ extern "C"
         result = m3_LoadModule (runtime, module);
         if (result) return result;
         
-        result = m3_LinkWASI (runtime->modules);
-        if (result) FATAL("m3_LinkWASI: %s", result);
-
-        result = m3_LinkLibC (runtime->modules);
-        if (result) FATAL("m3_LinkLibC: %s", result);
-        
-        result = repl_call(runtime, "_start");
+        result = m3_LinkSpecTest (runtime->modules);
         
         return result;
     }
@@ -108,6 +102,9 @@ extern "C"
     
     result = m3_LinkLibC (runtime->modules);
     if (result) FATAL("m3_LinkLibC: %s", result);
+    
+    result = repl_call(runtime, "_start");
+
 
     printf("Finish Wasm3 Init!!");
 }
