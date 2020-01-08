@@ -627,7 +627,7 @@ M3Result  m3_LinkWASI  (IM3Module module)
 {
     M3Result result = m3Err_none;
 
-    const char* wasi  = "wasi_unstable";
+    const char* wasi  = "wasi_snapshot_preview1";
 
 #ifdef _WIN32
     setmode(fileno(stdin),  O_BINARY);
