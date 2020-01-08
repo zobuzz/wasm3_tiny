@@ -30,6 +30,7 @@
 		F4F4C12823C490440098C4DA /* m3_core.c in Sources */ = {isa = PBXBuildFile; fileRef = F4F4C11023C490430098C4DA /* m3_core.c */; };
 		F4F4C12923C490440098C4DA /* m3_parse.c in Sources */ = {isa = PBXBuildFile; fileRef = F4F4C11123C490430098C4DA /* m3_parse.c */; };
 		F4F4C12B23C490440098C4DA /* m3_code.c in Sources */ = {isa = PBXBuildFile; fileRef = F4F4C11923C490440098C4DA /* m3_code.c */; };
+		F4F4C13423C4A09C0098C4DA /* wasm3_tiny_data in Resources */ = {isa = PBXBuildFile; fileRef = F4F4C13323C4A09C0098C4DA /* wasm3_tiny_data */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -102,6 +103,8 @@
 		F4F4C12E23C490670098C4DA /* fib64.wasm.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = fib64.wasm.h; path = source/extra/fib64.wasm.h; sourceTree = SOURCE_ROOT; };
 		F4F4C12F23C490670098C4DA /* fib32_tail.wasm.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = fib32_tail.wasm.h; path = source/extra/fib32_tail.wasm.h; sourceTree = SOURCE_ROOT; };
 		F4F4C13023C490670098C4DA /* fib32.wasm.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = fib32.wasm.h; path = source/extra/fib32.wasm.h; sourceTree = SOURCE_ROOT; };
+		F4F4C13123C4A08D0098C4DA /* helloworld */ = {isa = PBXFileReference; lastKnownFileType = file; name = helloworld; path = wasm3_tiny_data/helloworld; sourceTree = "<group>"; };
+		F4F4C13323C4A09C0098C4DA /* wasm3_tiny_data */ = {isa = PBXFileReference; lastKnownFileType = folder; path = wasm3_tiny_data; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -132,7 +135,8 @@
 		F4F4C0BF23C48DDA0098C4DA = {
 			isa = PBXGroup;
 			children = (
-				07883A4D23C49A6A006C37B6 /* wasm3_tiny_data */,
+				F4F4C13323C4A09C0098C4DA /* wasm3_tiny_data */,
+				F4F4C13123C4A08D0098C4DA /* helloworld */,
 				F4F4C0FF23C490260098C4DA /* wasm3 */,
 				F4F4C0CA23C48DDA0098C4DA /* wams3test */,
 				F4F4C0E323C48DDB0098C4DA /* wams3testTests */,
@@ -338,7 +342,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				07883A4E23C49A6A006C37B6 /* wasm3_tiny_data in Resources */,
+				F4F4C13423C4A09C0098C4DA /* wasm3_tiny_data in Resources */,
 				F4F4C0D823C48DDB0098C4DA /* LaunchScreen.storyboard in Resources */,
 				F4F4C0D523C48DDB0098C4DA /* Assets.xcassets in Resources */,
 				F4F4C0D323C48DDA0098C4DA /* Main.storyboard in Resources */,
