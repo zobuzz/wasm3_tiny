@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0775C49A23C58E3D00E47B06 /* tiny_api_wasi.c in Sources */ = {isa = PBXBuildFile; fileRef = 0775C49923C58E3D00E47B06 /* tiny_api_wasi.c */; };
+		07883A4E23C49A6A006C37B6 /* wasm3_tiny_data in Resources */ = {isa = PBXBuildFile; fileRef = 07883A4D23C49A6A006C37B6 /* wasm3_tiny_data */; };
 		F4F4C0CD23C48DDA0098C4DA /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = F4F4C0CC23C48DDA0098C4DA /* AppDelegate.m */; };
 		F4F4C0D023C48DDA0098C4DA /* ViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = F4F4C0CF23C48DDA0098C4DA /* ViewController.mm */; };
 		F4F4C0D323C48DDA0098C4DA /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F4F4C0D123C48DDA0098C4DA /* Main.storyboard */; };
@@ -48,6 +50,9 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		0775C49823C58E3D00E47B06 /* tiny_api_wasi.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = tiny_api_wasi.h; sourceTree = "<group>"; };
+		0775C49923C58E3D00E47B06 /* tiny_api_wasi.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = tiny_api_wasi.c; sourceTree = "<group>"; };
+		07883A4D23C49A6A006C37B6 /* wasm3_tiny_data */ = {isa = PBXFileReference; lastKnownFileType = folder; path = wasm3_tiny_data; sourceTree = "<group>"; };
 		F4F4C0C823C48DDA0098C4DA /* wams3test.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = wams3test.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F4F4C0CB23C48DDA0098C4DA /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		F4F4C0CC23C48DDA0098C4DA /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -127,6 +132,7 @@
 		F4F4C0BF23C48DDA0098C4DA = {
 			isa = PBXGroup;
 			children = (
+				07883A4D23C49A6A006C37B6 /* wasm3_tiny_data */,
 				F4F4C0FF23C490260098C4DA /* wasm3 */,
 				F4F4C0CA23C48DDA0098C4DA /* wams3test */,
 				F4F4C0E323C48DDB0098C4DA /* wams3testTests */,
@@ -157,6 +163,8 @@
 				F4F4C0D623C48DDB0098C4DA /* LaunchScreen.storyboard */,
 				F4F4C0D923C48DDB0098C4DA /* Info.plist */,
 				F4F4C0DA23C48DDB0098C4DA /* main.m */,
+				0775C49823C58E3D00E47B06 /* tiny_api_wasi.h */,
+				0775C49923C58E3D00E47B06 /* tiny_api_wasi.c */,
 			);
 			path = wams3test;
 			sourceTree = "<group>";
@@ -330,6 +338,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				07883A4E23C49A6A006C37B6 /* wasm3_tiny_data in Resources */,
 				F4F4C0D823C48DDB0098C4DA /* LaunchScreen.storyboard in Resources */,
 				F4F4C0D523C48DDB0098C4DA /* Assets.xcassets in Resources */,
 				F4F4C0D323C48DDA0098C4DA /* Main.storyboard in Resources */,
@@ -371,6 +380,7 @@
 				F4F4C0DB23C48DDB0098C4DA /* main.m in Sources */,
 				F4F4C11F23C490440098C4DA /* m3_optimize.c in Sources */,
 				F4F4C12623C490440098C4DA /* m3_module.c in Sources */,
+				0775C49A23C58E3D00E47B06 /* tiny_api_wasi.c in Sources */,
 				F4F4C12023C490440098C4DA /* m3_bind.c in Sources */,
 				F4F4C0CD23C48DDA0098C4DA /* AppDelegate.m in Sources */,
 			);

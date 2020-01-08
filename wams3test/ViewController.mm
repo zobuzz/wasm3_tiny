@@ -12,6 +12,7 @@
 #include "m3.h"
 #include "m3_api_wasi.h"
 #include "m3_api_libc.h"
+#include "tiny_api_wasi.h"
 #include "m3_env.h"
 
 #include "extra/fib32.wasm.h"
@@ -55,7 +56,7 @@ extern "C"
     {
         M3Result result = m3Err_none;
         
-        NSString* path = [[NSBundle mainBundle] pathForResource:@"wasm3_tiny_data/helloworld"
+        NSString* path = [[NSBundle mainBundle] pathForResource:@"wasm3_tiny_data/example.wasm"
         ofType:@""];
         
         NSURL *fileUrl = [NSURL fileURLWithPath:path];
@@ -102,6 +103,9 @@ extern "C"
     
     result = m3_LinkLibC (runtime->modules);
     if (result) FATAL("m3_LinkLibC: %s", result);
+    
+    result = tiny_LinkWASI(runtime->modules);
+    if (result) FATAL("tiny_LinkWASI: %s", result);
     
     result = repl_call(runtime, "_start");
 
