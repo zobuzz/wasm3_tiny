@@ -56,7 +56,8 @@ extern "C"
     {
         M3Result result = m3Err_none;
         
-        NSString* path = [[NSBundle mainBundle] pathForResource:@"wasm3_tiny_data/example.wasm"
+        //NSString* path = [[NSBundle mainBundle] pathForResource:@"wasm3_tiny_data/example.wasm"
+        NSString* path = [[NSBundle mainBundle] pathForResource:@"wasm3_tiny_data/Tiny3D.wasm"
         ofType:@""];
         
         NSURL *fileUrl = [NSURL fileURLWithPath:path];
