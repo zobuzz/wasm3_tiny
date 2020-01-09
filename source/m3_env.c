@@ -314,7 +314,7 @@ M3Result  ResizeMemory  (IM3Runtime io_runtime, u32 i_numPages)
             d_m3Assert(io_runtime->numStackSlots > d_m3MaxFunctionStackHeight);
             memory->mallocated->maxStack = (m3reg_t *) io_runtime->stack + (io_runtime->numStackSlots - d_m3MaxFunctionStackHeight);
 
-            m3log (runtime, "resized old: %p; mem: %p; end: %p; pages: %d", oldMallocated, memory->mallocated, memory->mallocated->end, memory->numPages);
+            m3log (runtime, "resized old: %p; mem: %p; end: %p; pages: %d", oldMallocated, memory->mallocated, memory->mallocated->length, memory->numPages);
         }
         else result = m3Err_mallocFailed;
     }
@@ -813,6 +813,9 @@ M3Result  m3Error  (M3Result i_result, IM3Runtime i_runtime, IM3Module i_module,
         va_start (args, i_errorMessage);
         vsnprintf (i_runtime->error_message, sizeof(i_runtime->error_message), i_errorMessage, args);
         va_end (args);
+        
+        printf("[tiny_log] %s \n", i_runtime->error_message);
+
     }
 
     return i_result;

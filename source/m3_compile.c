@@ -1181,6 +1181,7 @@ _           (EmitOp     (o, op));
         }
         else
         {
+            printf("[tiny_log] missing function \n");
             result = ErrorCompile (m3Err_functionImportMissing, o, "'%s.%s'", GetFunctionImportModuleName (function), GetFunctionName (function));
         }
     }
