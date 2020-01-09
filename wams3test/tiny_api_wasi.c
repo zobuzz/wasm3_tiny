@@ -45,6 +45,15 @@ m3ApiRawFunction(tiny_log)
     m3ApiReturn(result);
 }
 
+m3ApiRawFunction(emscripten_get_now)
+{
+    m3ApiReturnType (double_t)
+    
+    printf("[tiny_log] call emscripten_get_now\n");
+    
+    f64 result = 0;
+    m3ApiReturn(result);
+}
 
 M3Result  tiny_LinkWASI  (IM3Module module)
 {
@@ -54,7 +63,8 @@ M3Result  tiny_LinkWASI  (IM3Module module)
 
 _   (SuppressLookupFailure (m3_LinkRawFunction (module, wasi, "sum",       "i(ii)",   &tiny_sum)));
 _   (SuppressLookupFailure (m3_LinkRawFunction (module, wasi, "tiny_log",       "i(i)",   &tiny_log)));
-    
+_   (SuppressLookupFailure (m3_LinkRawFunction (module, wasi, "emscripten_get_now",       "F()",   &emscripten_get_now)));
+
 _catch:
     return result;
 }

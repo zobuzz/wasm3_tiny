@@ -134,6 +134,7 @@ _   (SuppressLookupFailure (m3_LinkRawFunction (module, env, "_memcpy",         
 _   (SuppressLookupFailure (m3_LinkRawFunction (module, env, "_abort",            "v()",     &m3_libc_abort)));
 _   (SuppressLookupFailure (m3_LinkRawFunction (module, env, "_exit",             "v(i)",    &m3_libc_exit)));
 _   (SuppressLookupFailure (m3_LinkRawFunction (module, env, "_clock",            "i()",     &m3_libc_clock)));
+_   (SuppressLookupFailure (m3_LinkRawFunction (module, env, "clock",            "i()",     &m3_libc_clock)));
 
 _catch:
     return result;
