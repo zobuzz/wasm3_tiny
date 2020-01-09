@@ -33,6 +33,18 @@ m3ApiRawFunction(tiny_sum)
     m3ApiReturn(result);
 }
 
+m3ApiRawFunction(tiny_log)
+{
+    m3ApiReturnType (int32_t)
+    
+    m3ApiGetArg     (int32_t, value_1)
+    
+    printf("[tiny_log] print a tiny log %d \n", value_1);
+    
+    u32 result = 0;
+    m3ApiReturn(result);
+}
+
 
 M3Result  tiny_LinkWASI  (IM3Module module)
 {
@@ -41,6 +53,8 @@ M3Result  tiny_LinkWASI  (IM3Module module)
     const char* wasi  = "env";
 
 _   (SuppressLookupFailure (m3_LinkRawFunction (module, wasi, "sum",       "i(ii)",   &tiny_sum)));
+_   (SuppressLookupFailure (m3_LinkRawFunction (module, wasi, "tiny_log",       "i(i)",   &tiny_log)));
+    
 _catch:
     return result;
 }
