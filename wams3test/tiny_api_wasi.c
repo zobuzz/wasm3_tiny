@@ -21,7 +21,6 @@ M3Result  SuppressLookupFailure (M3Result i_result)
         return i_result;
 }
 
-
 m3ApiRawFunction(tiny_sum)
 {
     m3ApiReturnType (int32_t)
@@ -55,6 +54,28 @@ m3ApiRawFunction(emscripten_get_now)
     m3ApiReturn(result);
 }
 
+//m3ApiRawFunction(emscripten_request_animation_frame_loop)
+//{
+//    m3ApiReturnType (double_t)
+//
+//    printf("[tiny_log] call emscripten_request_animation_frame_loop\n");
+//
+//    u32 result = 0;
+//    m3ApiReturn(result);
+//}
+
+m3ApiRawFunction(__syscall4)
+{
+    m3ApiReturnType (int32_t)
+    
+    m3ApiGetArg     (int32_t, value_1)
+    m3ApiGetArg     (int32_t, value_2)
+    printf("[tiny_log] call __syscall4\n");
+
+    u32 result = 0;
+    m3ApiReturn(result);
+}
+
 M3Result  tiny_LinkWASI  (IM3Module module)
 {
     M3Result result = m3Err_none;
@@ -64,6 +85,8 @@ M3Result  tiny_LinkWASI  (IM3Module module)
 _   (SuppressLookupFailure (m3_LinkRawFunction (module, wasi, "sum",       "i(ii)",   &tiny_sum)));
 _   (SuppressLookupFailure (m3_LinkRawFunction (module, wasi, "tiny_log",       "i(i)",   &tiny_log)));
 _   (SuppressLookupFailure (m3_LinkRawFunction (module, wasi, "emscripten_get_now",       "F()",   &emscripten_get_now)));
+//_   (SuppressLookupFailure (m3_LinkRawFunction (module, wasi, "emscripten_request_animation_frame_loop",       "v(ii)",   &emscripten_request_animation_frame_loop)));
+_   (SuppressLookupFailure (m3_LinkRawFunction (module, wasi, "__syscall4",       "i(ii)",   &__syscall4)));
 
 _catch:
     return result;

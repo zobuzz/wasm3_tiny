@@ -50,7 +50,22 @@ extern "C"
         if (result) return result;
 
         return result;
-}
+    }
+    
+    M3Result repl_call_args  (IM3Runtime runtime, const char* name, uint32_t i_argc, const char * const * i_argv)
+    {
+        M3Result result = m3Err_none;
+        
+        IM3Function func;
+        result = m3_FindFunction (&func, runtime, name);
+        if (result) return result;
+        
+        result = m3_CallWithArgs (func, i_argc, i_argv);
+        if (result) return result;
+        
+        return result;
+    }
+
     
     M3Result repl_load  (IM3Runtime runtime, const char* fn)
     {
@@ -110,9 +125,29 @@ extern "C"
     if (result) FATAL("tiny_LinkWASI: %s", result);
     
     result = repl_call(runtime, "_start");
+    printf("result: %s \n", result);
 
 
-    printf("Finish Wasm3 Init!!");
+    printf("Finish Wasm3 Init!! \n");
+    
+    const char* args[] = {"0", "0"};
+    result = repl_call_args(runtime, "tick_double", 2 , args);
+    if (result) FATAL("tiny_LinkWASI: %s", result);
+//
+//    result = repl_call_args(runtime, "tick_double", 2 , args);
+//    if (result) FATAL("tiny_LinkWASI: %s", result);
+//
+//    result = repl_call_args(runtime, "tick_double", 2 , args);
+//    if (result) FATAL("tiny_LinkWASI: %s", result);
+//
+//    result = repl_call_args(runtime, "tick_double", 2 , args);
+//    if (result) FATAL("tiny_LinkWASI: %s", result);
+
+//    result = repl_call(runtime, "tick_double__void*_");
+//    result = repl_call(runtime, "tick_double__void*_");
+//    result = repl_call(runtime, "tick_double__void*_");
+
+    
 }
 
 

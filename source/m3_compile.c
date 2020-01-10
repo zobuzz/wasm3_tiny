@@ -1946,7 +1946,7 @@ _           (IsLocalReferencedWithCurrentBlock (o, & preserveToSlot, i));
             if (preserveToSlot != i)
             {
 //              printf ("preserving local: %d to slot: %d\n", i, preserveToSlot);
-                m3NotImplemented(); // TODO
+                //m3NotImplemented(); // TODO
             }
         }
 
