@@ -54,16 +54,6 @@ m3ApiRawFunction(emscripten_get_now)
     m3ApiReturn(result);
 }
 
-//m3ApiRawFunction(emscripten_request_animation_frame_loop)
-//{
-//    m3ApiReturnType (double_t)
-//
-//    printf("[tiny_log] call emscripten_request_animation_frame_loop\n");
-//
-//    u32 result = 0;
-//    m3ApiReturn(result);
-//}
-
 m3ApiRawFunction(__syscall4)
 {
     m3ApiReturnType (int32_t)
@@ -76,17 +66,51 @@ m3ApiRawFunction(__syscall4)
     m3ApiReturn(result);
 }
 
+m3ApiRawFunction(js_html_initImageLoading)
+{
+    m3ApiReturnType (int32_t)
+    
+    printf("[tiny_log] call js_html_initImageLoading\n");
+    
+    u32 result = 0;
+    m3ApiReturn(result);
+}
+
+m3ApiRawFunction(emscripten_request_animation_frame_loop)
+{
+    m3ApiReturnType (int32_t)
+    
+    printf("[tiny_log] call emscripten_request_animation_frame_loop\n");
+    
+    u32 result = 0;
+    m3ApiReturn(result);
+}
+
+m3ApiRawFunction(emscripten_throw_string)
+{
+    m3ApiReturnType (int32_t)
+    
+    printf("[tiny_log] call emscripten_throw_string\n");
+    
+    u32 result = 0;
+    m3ApiReturn(result);
+}
+
+
+
 M3Result  tiny_LinkWASI  (IM3Module module)
 {
     M3Result result = m3Err_none;
 
     const char* wasi  = "env";
 
-_   (SuppressLookupFailure (m3_LinkRawFunction (module, wasi, "sum",       "i(ii)",   &tiny_sum)));
-_   (SuppressLookupFailure (m3_LinkRawFunction (module, wasi, "tiny_log",       "i(i)",   &tiny_log)));
-_   (SuppressLookupFailure (m3_LinkRawFunction (module, wasi, "emscripten_get_now",       "F()",   &emscripten_get_now)));
-//_   (SuppressLookupFailure (m3_LinkRawFunction (module, wasi, "emscripten_request_animation_frame_loop",       "v(ii)",   &emscripten_request_animation_frame_loop)));
-_   (SuppressLookupFailure (m3_LinkRawFunction (module, wasi, "__syscall4",       "i(ii)",   &__syscall4)));
+_   (SuppressLookupFailure (m3_LinkRawFunction (module, wasi, "sum", "i(ii)", &tiny_sum)));
+_   (SuppressLookupFailure (m3_LinkRawFunction (module, wasi, "tiny_log", "i(i)", &tiny_log)));
+_   (SuppressLookupFailure (m3_LinkRawFunction (module, wasi, "emscripten_get_now", "F()", &emscripten_get_now)));
+_   (SuppressLookupFailure (m3_LinkRawFunction (module, wasi, "__syscall4", "i(ii)", &__syscall4)));
+_   (SuppressLookupFailure (m3_LinkRawFunction (module, wasi, "js_html_initImageLoading", "v()", &js_html_initImageLoading)));
+_   (SuppressLookupFailure (m3_LinkRawFunction (module, wasi, "emscripten_request_animation_frame_loop", "v(ii)", &emscripten_request_animation_frame_loop)));
+_   (SuppressLookupFailure (m3_LinkRawFunction (module, wasi, "emscripten_throw_string", "v(i)", &emscripten_throw_string)));
 
 _catch:
     return result;
