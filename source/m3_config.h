@@ -59,7 +59,7 @@
 # define d_m3LogCodePages       0
 # define d_m3LogModule          1
 # define d_m3LogRuntime         0
-# define d_m3LogExec            1
+# define d_m3LogExec            0
 # define d_m3LogStackTrace      0
 # define d_m3LogNativeStack     0
 

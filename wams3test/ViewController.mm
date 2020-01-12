@@ -71,7 +71,7 @@ extern "C"
     {
         M3Result result = m3Err_none;
         
-        //NSString* path = [[NSBundle mainBundle] pathForResource:@"wasm3_tiny_data/example.wasm"
+        //NSString* path = [[NSBundle mainBundle] pathForResource:@"wasm3_tiny_data/tiny_1.wasm"
         NSString* path = [[NSBundle mainBundle] pathForResource:@"wasm3_tiny_data/Tiny3D.wasm"
         //NSString* path = [[NSBundle mainBundle] pathForResource:@"wasm3_tiny_data/tiny3d_hooters.wasm"
         ofType:@""];
@@ -129,25 +129,32 @@ extern "C"
 
 
     printf("Finish Wasm3 Init!! \n");
+    //debug print all functions in module
+//    for(int i=0; i<runtime->modules->numFunctions; i++)
+//    {
+//        printf("module functions :%s \n", runtime->modules->functions[i].name);
+//    }
     
+    const char* S_TICK_FUNC_NAME = "tick(double, void*)";
+//    const char* S_TICK_FUNC_NAME = "tick_double";
+    //const char* S_TICK_FUNC_NAME = "tick_double__void*_";
+
     const char* args[] = {"0", "0"};
-    result = repl_call_args(runtime, "tick_double", 2 , args);
+    result = repl_call_args(runtime, S_TICK_FUNC_NAME, 2 , args);
     if (result) FATAL("tiny_LinkWASI: %s", result);
-//
-//    result = repl_call_args(runtime, "tick_double", 2 , args);
-//    if (result) FATAL("tiny_LinkWASI: %s", result);
-//
-//    result = repl_call_args(runtime, "tick_double", 2 , args);
-//    if (result) FATAL("tiny_LinkWASI: %s", result);
-//
-//    result = repl_call_args(runtime, "tick_double", 2 , args);
-//    if (result) FATAL("tiny_LinkWASI: %s", result);
 
-//    result = repl_call(runtime, "tick_double__void*_");
-//    result = repl_call(runtime, "tick_double__void*_");
-//    result = repl_call(runtime, "tick_double__void*_");
+    result = repl_call_args(runtime, S_TICK_FUNC_NAME, 2 , args);
+    result = repl_call_args(runtime, S_TICK_FUNC_NAME, 2 , args);
+    result = repl_call_args(runtime, S_TICK_FUNC_NAME, 2 , args);
+//    result = repl_call_args(runtime, S_TICK_FUNC_NAME, 2 , args);
+//    result = repl_call_args(runtime, S_TICK_FUNC_NAME, 2 , args);
+//    result = repl_call_args(runtime, S_TICK_FUNC_NAME, 2 , args);
+//    result = repl_call_args(runtime, S_TICK_FUNC_NAME, 2 , args);
+//    result = repl_call_args(runtime, S_TICK_FUNC_NAME, 2 , args);
+//    result = repl_call_args(runtime, S_TICK_FUNC_NAME, 2 , args);
+//    result = repl_call_args(runtime, S_TICK_FUNC_NAME, 2 , args);
+//    result = repl_call_args(runtime, S_TICK_FUNC_NAME, 2 , args);
 
-    
 }
 
 
