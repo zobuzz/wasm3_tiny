@@ -141,10 +141,6 @@ extern "C"
 //    {
 //        printf("module functions :%s \n", runtime->modules->functions[i].name);
 //    }
-    
-    const char* args[] = {"0", "0"};
-    result = repl_call_args(runtime, S_TICK_FUNC_NAME, 2 , args);
-    if (result) FATAL("tiny_LinkWASI: %s", result);
 }
 @end
 

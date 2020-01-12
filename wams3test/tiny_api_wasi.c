@@ -86,34 +86,36 @@ m3ApiRawFunction(emscripten_request_animation_frame_loop)
     u32 result = 0;
     m3ApiReturn(result);
 }
-
+//type3 v(i)
 m3ApiRawFunction(emscripten_throw_string)
 {
     m3ApiReturnType (int32_t)
-    
-    printf("[tiny_log] call emscripten_throw_string\n");
+
+    m3ApiGetArg     (int32_t, value_1)
+
+    printf("[tiny_log] call emscripten_throw_string arg:%d\n", value_1);
     
     u32 result = 0;
     m3ApiReturn(result);
 }
-
+//type8  i()
 m3ApiRawFunction(emscripten_is_main_browser_thread)
 {
     m3ApiReturnType (int32_t)
     
     printf("[tiny_log] call emscripten_is_main_browser_thread\n");
     
-    u32 result = 0;
+    u32 result = 1;
     m3ApiReturn(result);
 }
-
-//TODO by sj
+//type3 v(i)
 m3ApiRawFunction(_emscripten_start_fetch)
 {
-    //func type3
     m3ApiReturnType (int32_t)
     
-    printf("[tiny_log] call _emscripten_start_fetch\n");
+    m3ApiGetArg     (int32_t, value_1)
+
+    printf("[tiny_log] call _emscripten_start_fetch arg:%d\n", value_1);
     
     u32 result = 0;
     m3ApiReturn(result);
