@@ -14,9 +14,30 @@
 
 @implementation AppDelegate
 
+@synthesize window;
+@synthesize m_view;
+
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
+    CGRect rect = [ [UIScreen mainScreen] bounds];
+    window = [ [UIWindow alloc] initWithFrame: rect];
+    m_view = [ [View alloc] initWithFrame: rect];
+    
+    [window addSubview: m_view];
+    
+    UIViewController *viewController = [[ViewController alloc] init];
+    viewController.view = m_view;
+    
+    
+    [window setRootViewController:viewController];
+    [window makeKeyAndVisible];
+    
+    float scaleFactor = [[UIScreen mainScreen] scale];
+    [m_view setContentScaleFactor: scaleFactor ];
+    
+    [viewController viewDidLoad];
+
     return YES;
 }
 
@@ -40,6 +61,7 @@
 
 - (void)applicationDidBecomeActive:(UIApplication *)application {
     // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
+    [m_view start];
 }
 
 

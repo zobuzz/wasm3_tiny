@@ -21,6 +21,14 @@
 
 extern "C"
 {
+    const char* S_TICK_FUNC_NAME = "tick(double, void*)";
+//    const char* S_TICK_FUNC_NAME = "tick_double";
+//    const char* S_TICK_FUNC_NAME = "tick_double__void*_";
+    
+    M3Result result = m3Err_none;
+    IM3Environment env = m3_NewEnvironment ();
+    IM3Runtime runtime = NULL;
+    
     void repl_free(IM3Runtime* runtime)
     {
         if (*runtime) {
@@ -106,10 +114,10 @@ extern "C"
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
-    M3Result result = m3Err_none;
-    
-    IM3Environment env = m3_NewEnvironment ();
-    IM3Runtime runtime = NULL;
+//    M3Result result = m3Err_none;
+//
+//    IM3Environment env = m3_NewEnvironment ();
+//    IM3Runtime runtime = NULL;
 
     result = repl_init(env, &runtime);
     result = repl_load(runtime, "");
@@ -127,7 +135,6 @@ extern "C"
     result = repl_call(runtime, "_start");
     printf("result: %s \n", result);
 
-
     printf("Finish Wasm3 Init!! \n");
     //debug print all functions in module
 //    for(int i=0; i<runtime->modules->numFunctions; i++)
@@ -135,27 +142,34 @@ extern "C"
 //        printf("module functions :%s \n", runtime->modules->functions[i].name);
 //    }
     
-    const char* S_TICK_FUNC_NAME = "tick(double, void*)";
-//    const char* S_TICK_FUNC_NAME = "tick_double";
-    //const char* S_TICK_FUNC_NAME = "tick_double__void*_";
+    const char* args[] = {"0", "0"};
+    result = repl_call_args(runtime, S_TICK_FUNC_NAME, 2 , args);
+    if (result) FATAL("tiny_LinkWASI: %s", result);
+}
+@end
 
+//////////////////////////View Implement //////////////////////////////
+@implementation View
+
+- (void) start
+{
+    printf("[tiny_log] view start \n");
+    if (nil == m_displayLink)
+    {
+        m_displayLink = [self.window.screen displayLinkWithTarget:self selector:@selector(renderFrame)];
+        [m_displayLink addToRunLoop:[NSRunLoop currentRunLoop] forMode:NSRunLoopCommonModes];
+    }
+}
+static int frameCount = 0;
+- (void) renderFrame
+{
+    frameCount ++;
+    //printf("[tiny_log] render frame:%d\n", frameCount);
+    
     const char* args[] = {"0", "0"};
     result = repl_call_args(runtime, S_TICK_FUNC_NAME, 2 , args);
     if (result) FATAL("tiny_LinkWASI: %s", result);
 
-    result = repl_call_args(runtime, S_TICK_FUNC_NAME, 2 , args);
-    result = repl_call_args(runtime, S_TICK_FUNC_NAME, 2 , args);
-    result = repl_call_args(runtime, S_TICK_FUNC_NAME, 2 , args);
-//    result = repl_call_args(runtime, S_TICK_FUNC_NAME, 2 , args);
-//    result = repl_call_args(runtime, S_TICK_FUNC_NAME, 2 , args);
-//    result = repl_call_args(runtime, S_TICK_FUNC_NAME, 2 , args);
-//    result = repl_call_args(runtime, S_TICK_FUNC_NAME, 2 , args);
-//    result = repl_call_args(runtime, S_TICK_FUNC_NAME, 2 , args);
-//    result = repl_call_args(runtime, S_TICK_FUNC_NAME, 2 , args);
-//    result = repl_call_args(runtime, S_TICK_FUNC_NAME, 2 , args);
-//    result = repl_call_args(runtime, S_TICK_FUNC_NAME, 2 , args);
-
 }
-
 
 @end
