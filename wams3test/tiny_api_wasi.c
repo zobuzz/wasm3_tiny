@@ -107,29 +107,6 @@ m3ApiRawFunction(emscripten_is_main_browser_thread)
 
     printf("[tiny_log] call emscripten_is_main_browser_thread arg:%d\n", value_1);
     
-    printf("Max Stack Length is %d\n", (int)runtime->memory.mallocated->length);
-    void* test = (void*)runtime->memory.mallocated + value_1;
-    //char* test = (char*)runtime->memory.mallocated->maxStack + value_1;
-    void* stack_head = (void*)runtime->memory.mallocated + sizeof(M3MemoryHeader);
-    for(int i=-1000; i<2000; i++)
-    {
-        char cc = *((char*)stack_head + value_1 + i);
-        printf("a  %c\n", cc);
-    }
-    
-    printf("End \n");
-    
-    for(int i=-1000; i<5000; i++)
-    {
-        //printf("%d %c \n", i, test[i]);
-        printf("%c", ((char*)test)[i]);
-
-    }
-//    while(*test != '\0')
-//    {
-//        printf("%c \n", *test);
-//    }
-    
     u32 result = 1;
     m3ApiReturn(result);
 }
@@ -141,6 +118,13 @@ m3ApiRawFunction(_emscripten_start_fetch)
     m3ApiGetArg     (int32_t, value_1)
 
     printf("[tiny_log] call _emscripten_start_fetch arg:%d\n", value_1);
+    
+    void* stack_head = (void*)runtime->memory.mallocated + sizeof (M3MemoryHeader);
+    
+    for(int i =112; i<119; i++) {
+        char cc = *(((char*)stack_head) + value_1 + i);
+        printf("[tiny_log] call char >> %c", cc);
+    }
     
     u32 result = 0;
     m3ApiReturn(result);
