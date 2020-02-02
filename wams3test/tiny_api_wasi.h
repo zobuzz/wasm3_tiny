@@ -17,6 +17,8 @@ extern "C" {
 
     M3Result    tiny_LinkWASI     (IM3Module io_module);
 
+    void runAnimationFrame(f64 timeStamp);
+
 #if defined(__cplusplus)
 }
 # endif

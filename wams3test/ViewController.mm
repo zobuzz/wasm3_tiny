@@ -80,8 +80,9 @@ extern "C"
         M3Result result = m3Err_none;
         
         //NSString* path = [[NSBundle mainBundle] pathForResource:@"wasm3_tiny_data/tiny_1.wasm"
-        NSString* path = [[NSBundle mainBundle] pathForResource:@"wasm3_tiny_data/Tiny3D.wasm"
+        //NSString* path = [[NSBundle mainBundle] pathForResource:@"wasm3_tiny_data/Tiny3D.wasm"
         //NSString* path = [[NSBundle mainBundle] pathForResource:@"wasm3_tiny_data/tiny3d_hooters.wasm"
+        NSString* path = [[NSBundle mainBundle] pathForResource:@"wasm3_tiny_data/2020_1_25_tiny.wasm"
         ofType:@""];
         
         NSURL *fileUrl = [NSURL fileURLWithPath:path];
@@ -160,11 +161,13 @@ static int frameCount = 0;
 - (void) renderFrame
 {
     frameCount ++;
+    runAnimationFrame(0.0);
+
     //printf("[tiny_log] render frame:%d\n", frameCount);
     
-    const char* args[] = {"0", "0"};
-    result = repl_call_args(runtime, S_TICK_FUNC_NAME, 2 , args);
-    if (result) FATAL("tiny_LinkWASI: %s", result);
+//    const char* args[] = {"0", "0"};
+//    result = repl_call_args(runtime, S_TICK_FUNC_NAME, 2 , args);
+//    if (result) FATAL("tiny_LinkWASI: %s", result);
 
 }
 

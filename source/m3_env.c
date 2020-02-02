@@ -432,7 +432,7 @@ _                       (ReadLEB_u32 (& functionIndex, & bytes, end));
 
                         if (functionIndex < io_module->numFunctions)
                         {
-                            IM3Function function = & io_module->functions [functionIndex];      d_m3Assert (function); //printf ("table: %s\n", function->name);
+                            IM3Function function = & io_module->functions [functionIndex];      d_m3Assert (function); //printf ("[zorro] table: %s\n", function->name);
                             io_module->table0 [e + offset] = function;
                         }
                         else _throw ("function index out of range");
@@ -546,12 +546,102 @@ M3Result  m3_FindFunction  (IM3Function * o_function, IM3Runtime i_runtime, cons
     return result;
 }
 
+//add by sj
+M3Result  m3_FindIndirectFunction  (IM3Function * o_function, IM3Module i_module, int index)
+{
+    M3Result result = m3Err_none;
+    
+    if(index < 0 || index >= i_module->table0Size)
+        return result;
+    
+    IM3Function function =  i_module->table0[index];
+    
+    if (function)
+    {
+        if (not function->compiled)
+        {
+            result = Compile_Function (function);
+            if (result)
+                function = NULL;
+        }
+    }
+    else result = ErrorModule (m3Err_functionLookupFailed, i_module, "'%d'", index);
+    
+    * o_function = function;
+    
+    return result;
+}
+
 
 M3Result  m3_Call  (IM3Function i_function)
 {
     return m3_CallWithArgs (i_function, 0, NULL);
 }
 
+M3Result  m3_CallDirect(IM3Function i_function, uint64_t* i_argv, uint64_t* i_return)
+{
+    M3Result result = m3Err_none;
+    if (i_function->compiled)
+    {
+        IM3Module module = i_function->module;
+        
+        IM3Runtime runtime = module->runtime;
+        runtime->argc = i_function->funcType->numArgs;
+        runtime->argv = i_argv;
+//        if (strcmp (i_function->name, "_start") == 0) // WASI
+//            i_argc = 0;
+
+        IM3FuncType ftype = i_function->funcType;
+        
+        m3stack_t stack = (m3stack_t)(runtime->stack);
+        
+        m3logif (runtime, PrintFuncTypeSignature (ftype));
+        
+//        if (i_argc != ftype->numArgs) {
+//            _throw("arguments count mismatch");
+//        }
+        
+        for (u32 i = 0; i < ftype->numArgs; ++i)
+        {
+            m3stack_t s = &stack[i];
+            *(u64*)(s) = i_argv[i];
+        }
+        m3StackCheckInit();
+_       ((M3Result)Call (i_function->compiled, stack, runtime->memory.mallocated, d_m3OpDefaultArgs));
+        
+#if d_m3LogOutput
+        switch (ftype->returnType) {
+            case c_m3Type_none: fprintf (stderr, "Result: <Empty Stack>\n"); break;
+//#ifdef USE_HUMAN_FRIENDLY_ARGS
+//            case c_m3Type_i32:  fprintf (stderr, "Result: %" PRIi32 "\n", *(i32*)(stack));  break;
+//            case c_m3Type_i64:  fprintf (stderr, "Result: %" PRIi64 "\n", *(i64*)(stack));  break;
+//            case c_m3Type_f32:  fprintf (stderr, "Result: %f\n",   *(f32*)(stack));  break;
+//            case c_m3Type_f64:  fprintf (stderr, "Result: %lf\n",  *(f64*)(stack));  break;
+//#else
+//            case c_m3Type_i32:  fprintf (stderr, "Result: %u\n",  *(u32*)(stack));  break;
+//            case c_m3Type_f32:  {
+//                union { u32 u; f32 f; } union32;
+//                union32.f = * (f32 *)(stack);
+//                fprintf (stderr, "Result: %u\n", union32.u );
+//                break;
+//            }
+            case c_m3Type_i32:
+            case c_m3Type_f32:
+            case c_m3Type_i64:
+            case c_m3Type_f64:
+                
+                *i_return = *(i64*)(stack);
+
+                fprintf (stderr, "Result: %" PRIu64 "\n", *(u64*)(stack));
+                break;
+#endif // USE_HUMAN_FRIENDLY_ARGS
+            default: _throw("unknown return type");
+        }
+    }else _throw (m3Err_missingCompiledCode);
+    
+_catch: return result;
+
+}
 
 M3Result  m3_CallWithArgs  (IM3Function i_function, uint32_t i_argc, const char * const * i_argv)
 {
@@ -788,7 +878,8 @@ void  ReleaseCodePage  (IM3Runtime i_runtime, IM3CodePage i_codePage)
 
             m3log (code, "runtime: %p; open-pages: %d; full-pages: %d; active: %d; total: %d", i_runtime, numOpen, numFull, env->numActiveCodePages, env->numCodePages);
 
-            d_m3Assert (numOpen + numFull + env->numActiveCodePages == env->numCodePages);
+            //TODO by sj
+            //d_m3Assert (numOpen + numFull + env->numActiveCodePages == env->numCodePages);
 
 #           if d_m3LogCodePages
                 dump_code_page (i_codePage, /* startPC: */ NULL);
