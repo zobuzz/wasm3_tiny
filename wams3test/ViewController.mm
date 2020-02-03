@@ -74,7 +74,7 @@ extern "C"
         return result;
     }
 
-    
+    static NSData *fileData = nil;
     M3Result repl_load  (IM3Runtime runtime, const char* fn)
     {
         M3Result result = m3Err_none;
@@ -86,7 +86,7 @@ extern "C"
         ofType:@""];
         
         NSURL *fileUrl = [NSURL fileURLWithPath:path];
-        NSData *fileData = [NSData dataWithContentsOfURL:fileUrl];
+        fileData = [NSData dataWithContentsOfURL:fileUrl];
         
         u8* wasm = (u8*)fileData.bytes;
         u32 fsize = fileData.length;

@@ -604,7 +604,14 @@ M3Result  m3_CallDirect(IM3Function i_function, uint64_t* i_argv, uint64_t* i_re
         for (u32 i = 0; i < ftype->numArgs; ++i)
         {
             m3stack_t s = &stack[i];
-            *(u64*)(s) = i_argv[i];
+            switch (ftype->argTypes[i]) {
+
+            case c_m3Type_i32:  *(u32*)(s) = i_argv[i];  break;
+            case c_m3Type_i64:  *(u64*)(s) = i_argv[i]; break;
+            case c_m3Type_f32:  *(u32*)(s) = i_argv[i];  break;
+            case c_m3Type_f64:  *(u64*)(s) = i_argv[i]; break;
+            default: _throw("unknown argument type");
+            }
         }
         m3StackCheckInit();
 _       ((M3Result)Call (i_function->compiled, stack, runtime->memory.mallocated, d_m3OpDefaultArgs));
